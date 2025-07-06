@@ -1,0 +1,60 @@
+# ========================================
+# 設定例ファイル
+# このファイルをコピーして terraform.tfvars として使用してください
+# ========================================
+
+# プロジェクト設定
+project_name = "lamp-infra"
+environment  = "dev"
+aws_region   = "ap-northeast-1"
+
+# ネットワーク設定
+vpc_cidr               = "10.0.0.0/16"
+public_subnet_cidrs    = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs   = ["10.0.10.0/24", "10.0.11.0/24"]
+
+# EC2設定
+web_instance_type = "t3.micro"
+db_instance_type  = "t3.small"
+key_name          = "" # EC2キーペア名（必要に応じて設定）
+
+# Auto Scaling設定
+min_size         = 2
+max_size         = 6
+desired_capacity = 2
+
+# データベース設定（本番環境では必ず変更してください）
+mysql_root_password = "MySecurePassword123!"
+mysql_database      = "webapp"
+mysql_user          = "webuser"
+mysql_password      = "WebUserPassword123!"
+
+# 監視設定
+enable_detailed_monitoring      = true
+cloudwatch_log_retention_days   = 14
+
+# SSL/TLS設定
+domain_name = ""     # 独自ドメインを使用する場合は設定
+enable_ssl  = false  # SSL証明書を使用する場合はtrue
+
+# セキュリティ設定
+allowed_cidr_blocks   = ["0.0.0.0/0"]  # 本番環境では制限してください
+enable_vpc_flow_logs  = true
+enable_cloudtrail     = true
+
+# コスト最適化設定
+enable_spot_instances = false  # 開発環境でコスト削減する場合はtrue
+spot_price           = "0.05"
+enable_auto_shutdown = true    # 開発環境の自動停止
+auto_shutdown_time   = "19:00"
+auto_startup_time    = "09:00"
+
+# タグ設定
+default_tags = {
+  Project     = "LAMP Infrastructure"
+  Environment = "dev"
+  Owner       = "DevOps Team"
+  CreatedBy   = "Terraform"
+  CostCenter  = "Engineering"
+  Purpose     = "WebApp-Training"
+}
